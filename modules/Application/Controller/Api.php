@@ -2,6 +2,8 @@
 namespace Application\Controller;
 
 use Application\Controller\Shared as SharedController;
+use Aws\S3\S3Client;
+use Aws\Common\Aws;
 
 class Api extends SharedController
 {
@@ -37,37 +39,64 @@ class Api extends SharedController
         $response = array();
         $config   = $this->getConfig();
         $file     = $_FILES['file'];
-        $s3       = new AmazonS3(
-            $config['amazons3']['access'],
-            $config['amazons3']['secret']
+
+        $s3 = S3Client::factory(
+            array(
+                 'key'    => $config['amazons3']['access'],
+                 'secret' => $config['amazons3']['secret']
+            )
         );
 
-        $awsResponse = $s3->create_object($config['amazons3']['bucket'], $file['name'],
-              array(
-                   'fileUpload'  => fopen($file['tmp_name'], 'r'),
-                   'contentType' => $file['type'],
-                   'length'      => $file['size'],
-                   'acl'         => AmazonS3::ACL_PRIVATE,
-                   'storage'     => AmazonS3::STORAGE_REDUCED
-              )
+        $result = $s3->putObject(
+            array(
+                 'Bucket' => $config['amazons3']['bucket'],
+                 'Key'    => $file['name'],
+                 'Body'   => fopen($file['tmp_name'], 'r')
+            )
         );
 
-        if ($awsResponse->isOK()) {
-            $response = array(
-                'status' => 'success',
-                'code'   => 'OK'
-            );
-        } else {
-            $response = array(
-                'status' => 'error',
-                'code'   => 'E_FILE_NOT_UPLOADED'
-            );
-        }
+        // We can poll the object until it is accessible
+        $s3->waitUntilObjectExists(
+            array(
+                 'Bucket' => $config['amazons3']['bucket'],
+                 'Key'    => $file['name']
+            )
+        );
+
+        $response = array(
+            'status' => 'success',
+            'code'   => 'OK'
+        );
 
         return $this->createResponse($response);
     }
 
     public function downloadfileAction()
+    {
+
+        //require_once getcwd() . '/vendor/aws.phar';
+
+        $config = $this->getConfig();
+
+        $s3 = S3Client::factory(
+            array(
+                 'key'    => $config['amazons3']['access'],
+                 'secret' => $config['amazons3']['secret']
+            )
+        );
+
+        $objInfo = $s3->get_object_headers($config['amazons3']['bucket'], $this->post('filename'));
+        $obj     = $s3->get_object(
+            $config['amazons3']['bucket'],
+            $this->post('filename')
+        );
+
+        header('Content-type: ' . $objInfo->header['_info']['content_type']);
+
+        echo $obj->body;
+    }
+
+    /*public function downloadfileAction()
     {
 
         $config        = $this->getConfig();
@@ -85,7 +114,7 @@ class Api extends SharedController
                     'url'    => $downLink
                )
         );
-    }
+    }*/
 
     public function getLastUrlAction()
     {
@@ -101,7 +130,6 @@ class Api extends SharedController
             )
         );
     }
-
 
     public function getLastPriceAction()
     {

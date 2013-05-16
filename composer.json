@@ -13,7 +13,8 @@
     ],
     "require": {
 		"swiftmailer/swiftmailer": ">=4.2.0,<4.3-dev",
-        "ppi/framework": "dev-master"
+        "ppi/framework": "dev-master",
+        "aws/aws-sdk-php": "dev-master"
     },
     "extra": {
         "branch-alias": {
