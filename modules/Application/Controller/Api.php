@@ -83,15 +83,13 @@ class Api extends SharedController
             )
         );
 
-        $objInfo = $s3->get_object_headers($config['amazons3']['bucket'], $this->post('filename'));
-        $obj     = $s3->get_object(
-            $config['amazons3']['bucket'],
-            $this->post('filename')
+        $result = $s3->getObject(
+            array(
+                 'Bucket' => $config['amazons3']['bucket']
+            )
         );
 
-        header('Content-type: ' . $objInfo->header['_info']['content_type']);
-
-        echo $obj->body;
+        echo $result['Body'] . "\n";
     }
 
     /*public function downloadfileAction()

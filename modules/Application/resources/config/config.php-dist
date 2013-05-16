@@ -1,0 +1,10 @@
+<?php
+
+$config             = array();
+$config['amazons3'] = array(
+    'bucket' => '',
+    'access' => '',
+    'secret' => ''
+);
+
+return $config;
