@@ -17,6 +17,7 @@
 
     <div>
         <div id="holder" ></div> 
+        <button style="display:none">Send</button>
     </div>
 
 

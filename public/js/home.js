@@ -65,7 +65,8 @@ jQuery(document).ready(function ($) {
 });
 
 
-var holder = document.getElementById('holder');
+var holder = document.getElementById('holder'),
+    file = null;
 
 holder.ondragover = function (e) {
   e.preventDefault();
@@ -81,13 +82,34 @@ holder.ondrop = function (e) {
   e.preventDefault();
   this.className = '';
 
-  var file = e.dataTransfer.files[0],
-      reader = new FileReader();
+  file = e.dataTransfer.files[0];
+  var reader = new FileReader();
   reader.onload = function (event) {
-    console.log(event.target);
+    // event.target es la instancia de FileReader
+    $('button').fadeToggle();
+
     holder.style.background = 'url(' + event.target.result + ') no-repeat center';
   };
-  console.log(file);
   reader.readAsDataURL(file);
 };
+
+$('button').on('click', function(e){
+  e.preventDefault()
+  if (file === null) {
+    console.log('no formData')
+    return
+  }
+
+  var formData = new FormData();
+  formData.append('file', file);
+  $.ajax({
+    url: '/api/uploadFile',
+    data: formData,
+    processData: false,
+    contentType: false,
+    type: 'POST',
+  }).then(function(data){
+    console.log(data)
+  })
+})
 
