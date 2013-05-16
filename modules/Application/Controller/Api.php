@@ -74,8 +74,6 @@ class Api extends SharedController
     public function downloadfileAction()
     {
 
-        //require_once getcwd() . '/vendor/aws.phar';
-
         $config = $this->getConfig();
 
         $s3 = S3Client::factory(
