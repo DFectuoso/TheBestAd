@@ -6,14 +6,41 @@ use Application\Controller\Shared as SharedController;
 class Api extends SharedController
 {
 
+    public function savePurchaseAction()
+    {
+
+        $response = array(
+            'status' => 'success',
+            'code'   => 'OK'
+        );
+
+        $post    = $this->post();
+        $storage = $this->getService('purchases.storage');
+
+        $storage->create(
+            array(
+                 'ad'             => $post['ad'],
+                 'price'          => $post['price'],
+                 'url'            => $post['url'],
+                 'transaction_id' => $post['transaction_id'],
+                 'created_at'     => date('Y-m-d h:i:s'),
+                 'modified_at'    => date('Y-m-d h:i:s')
+            )
+        );
+
+        return $this->createResponse($response);
+    }
+
     public function uploadFileAction()
     {
 
         $response = array();
         $config   = $this->getConfig();
-
-        $file = $_FILES['file'];
-        $s3   = new AmazonS3($config['amazons3']['access'], $config['amazons3']['secret']);
+        $file     = $_FILES['file'];
+        $s3       = new AmazonS3(
+            $config['amazons3']['access'],
+            $config['amazons3']['secret']
+        );
 
         $awsResponse = $s3->create_object('bestad', $file['name'],
               array(

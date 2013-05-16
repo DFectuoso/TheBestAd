@@ -16,3 +16,8 @@ LastPrice:
 Uploadfile:
     pattern: /api/uploadfile
     defaults: { _controller: "Application:Api:uploadFile" }
+
+
+SavePurchase:
+    pattern: /api/savepurchase
+    defaults: { _controller: "Application:Api:savePurchase" }
