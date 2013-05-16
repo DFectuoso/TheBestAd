@@ -42,7 +42,7 @@ class Api extends SharedController
             $config['amazons3']['secret']
         );
 
-        $awsResponse = $s3->create_object('bestad', $file['name'],
+        $awsResponse = $s3->create_object($config['amazons3']['bucket'], $file['name'],
               array(
                    'fileUpload'  => fopen($file['tmp_name'], 'r'),
                    'contentType' => $file['type'],
@@ -65,6 +65,26 @@ class Api extends SharedController
         }
 
         return $this->createResponse($response);
+    }
+
+    public function downloadfileAction()
+    {
+
+        $config        = $this->getConfig();
+        $file          = $config['amazons3']['bucket'] . "/" . urlencode($this->post('file'));
+        $downExp       = time() + 10;
+        $downStrToSign = "GET\n\n\n$downExp\n$file";
+        $downSig       = urlencode(base64_encode(hash_hmac('sha1', $downStrToSign, $config['amazons3']['secret'], true)));
+        $downLink      = "http://$file?AWSAccessKeyId=" . $config['amazons3']['access'] . "&Signature=$downSig&Expires=$downExp";
+        // ^^^ yes the link looks weird but it's correct
+
+        return $this->createResponse(
+               array(
+                    'status' => 'success',
+                    'code'   => 'OK',
+                    'url'    => $downLink
+               )
+        );
     }
 
     public function getLastUrlAction()
