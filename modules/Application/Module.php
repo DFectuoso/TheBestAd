@@ -46,7 +46,11 @@ class Module extends BaseModule
 
             'visits.storage' => function($sm) {
                 return new \Application\Storage\Visits($sm->getService('datasource'));
-            }
+            },
+
+            'purchases.storage' => function($sm) {
+                return new \Application\Storage\Purchases($sm->getService('datasource'));
+            },
 
         ));
     }

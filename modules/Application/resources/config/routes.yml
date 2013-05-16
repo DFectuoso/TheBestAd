@@ -1,3 +1,13 @@
 Homepage:
     pattern:  /
     defaults: { _controller: "Application:Index:index"}
+
+
+LastUrl:
+    pattern: /endpoint/lasturl
+    defaults: { _controller: "Application:Api:getLastUrl" }
+
+
+LastPrice:
+    pattern: /endpoint/lastprice
+    defaults: { _controller: "Application:Api:getLastPrice" }

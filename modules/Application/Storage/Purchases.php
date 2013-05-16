@@ -29,6 +29,18 @@ class Purchases extends BaseStorage
         return $this->delete(array($this->getPrimaryKey() => $id));
     }
 
+    public function getLastRow()
+    {
+        $row = $this->_conn->createQueryBuilder()
+               ->select('u.*')
+               ->from($this->getTableName(), 'u')
+               ->orderBy('id', 'desc')
+               ->execute()
+               ->fetch($this->getFetchMode());
+
+        return new Entity($row);
+    }
+
     /**
      * Create a record
      *
