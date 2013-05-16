@@ -13,7 +13,6 @@
     <title><?php $view['slots']->output('title', 'The Best Ad') ?></title>
     
     <!-- CSS Stuff -->
-    <link href="<?=$view['assets']->getUrl('css/libs/bootstrap.min.css');?>" rel="stylesheet">
     <link href="<?=$view['assets']->getUrl('css/main.css');?>" rel="stylesheet">
     <?php $view['slots']->output('include_css'); ?>
     <!-- /CSS Stuff -->
@@ -36,12 +35,12 @@
     <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
 
     <div class="wrapper">
-        
+
         <!-- Begin Flash Message Injection -->
         <?php
         $flashNames = array('info' => 'info', 'success' => 'success', 'error' => 'error', 'warning' => 'block', 'notice' => 'block');
         $flashHeadings = array('info' => 'Heads Up!', 'error' => 'Oops!', 'success' => 'Well done!', 'block' => 'Warning!');
-        
+
         if($view['session']->hasFlashes()):
         ?>
         <div class="flashes">
@@ -55,7 +54,7 @@
                     <i class="icon-info-sign"></i>
                     <strong class="alert-heading"><?=$flashHeadings[$alertClass];?></strong>
                     <span><?=$flash;?></span>
-                </div>    
+                </div>
         <?php
                     endforeach;
             endforeach;
@@ -65,22 +64,20 @@
         <?php
         endif;
         ?>
-        
+
         <!-- Begin dynamic page output -->
         <div id="action-content">
         <?php $view['slots']->output('_content'); ?>
         </div>
         <!-- End dynamic page output -->
-        
+
     </div>
-    
-    
+
     <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<?=$view['assets']->getUrl('js/libs/jquery-1.8.0.min.js');?>"><\/script>')</script>
-    
+
     <!-- JS Body Stuff -->
-    <script src="<?=$view['assets']->getUrl('js/libs/bootstrap.min.js');?>"></script>
     <?php $view['slots']->output('include_js_body'); ?>
     <!-- /JS Body Stuff -->
 
