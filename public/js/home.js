@@ -1,5 +1,4 @@
-jQuery(document).ready(function($) {
-	
-	$('.flashes .alert').alert();
-	
+jQuery(document).ready(function ($) {
+
+
 });

@@ -32,17 +32,13 @@ class Module extends BaseModule
      */
     public function getConfig()
     {
-        return $this->loadYamlConfig(__DIR__ . '/resources/config/config.yml');
+        return include(__DIR__ . '/resources/config/config.php');
     }
-    
+
     public function getServiceConfig()
     {
         return array('factories' => array(
-            
-            'testService' => function($sm) {
-                return new Application\Classes\TestServiceClass();
-            }
-            
+
         ));
     }
 

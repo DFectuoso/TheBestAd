@@ -168,7 +168,13 @@
                     "alertText2": "Expected Format: ",
                     "alertText3": "mm/dd/yyyy hh:mm:ss AM|PM or ", 
                     "alertText4": "yyyy-mm-dd hh:mm:ss AM|PM"
-	            }
+	            },
+                'validateTakenEmail': {
+                    'alertText': '* This email is already in our records'
+                },
+                'validateTakenUsername': {
+                    'alertText': '* This username is already taken'
+                }
             };
             
         }

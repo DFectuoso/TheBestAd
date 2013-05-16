@@ -7,10 +7,10 @@
     
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="description" content="PPI Skeleton Project">
+    <meta name="description" content="The Best Ad">
     <meta name="viewport" content="width=device-width">
     
-    <title><?php $view['slots']->output('title', 'PPI Skeleton Application') ?></title>
+    <title><?php $view['slots']->output('title', 'The Best Ad') ?></title>
     
     <!-- CSS Stuff -->
     <link href="<?=$view['assets']->getUrl('css/libs/bootstrap.min.css');?>" rel="stylesheet">
@@ -34,45 +34,6 @@
 
     <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6. -->
     <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-      
-    <header>
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="<?=$view['router']->generate('Homepage');?>">PPI Skeleton Application</a>
-                    <ul class="nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                    
-                    <form class="navbar-search pull-left">
-                      <input type="text" class="search-query" placeholder="Search">
-                    </form>
-                    
-                    <ul class="nav pull-right">
-<!--                        <li class="dropdown" id="userDropdownMenu">-->
-<!--                            <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">My Account <b class="caret"></b></a>-->
-<!--                            <ul class="dropdown-menu">-->
-<!--                                <li><a href="--><?//=$view['router']->generate('User_Account');?><!--">View Profile</a></li>-->
-<!--                                <li><a href="--><?//=$view['router']->generate('User_Edit_Account');?><!--">Edit Profile</a></li>-->
-<!--                                <li><a href="--><?//=$view['router']->generate('User_Edit_Password');?><!--">Change Password</a></li>-->
-<!--                                <li class="divider"></li>-->
-<!--                                <li><a href="--><?//=$view['router']->generate('User_Manage_List');?><!--">Manage Users</a></li>-->
-<!--                                <li class="divider"></li>-->
-<!--                                <li><a href="--><?//=$view['router']->generate('User_Logout');?><!--">Logout</a></li>-->
-<!--                            </ul>-->
-<!--                        </li>-->
-                        <li><a class="" title="" href="<?=$view['router']->generate('User_Login');?>">Login</a></li>
-                        <li><a class="" title="" href="<?=$view['router']->generate('User_Signup');?>">Register</a></li>
-                    </ul>
-                    
-                </div>
-            </div>
-        </div>
-    </header>
-
-    
 
     <div class="container" id="page-content">
         
