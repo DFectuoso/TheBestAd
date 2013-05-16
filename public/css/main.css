@@ -1,3 +1,14 @@
-body {background: #242b37;}
+body {background: #242b37 url(../images/background.jpg) no-repeat;}
 .billboard {width: 100%;}
 .billboard img {min-width: 100%; max-width: 100%;}
+.sharebar {
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    background: rgba(0,0,0,0.65);
+    bottom: 0px;
+    z-index: 99999;
+    padding: 25px;
+
+    color: #FFFFFF;
+}

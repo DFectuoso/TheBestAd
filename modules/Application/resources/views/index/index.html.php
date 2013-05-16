@@ -11,7 +11,7 @@
     </div>
 
     <div class="purchase-wrapper">
-            XXX
+
     </div>
 
 </div>

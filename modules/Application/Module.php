@@ -37,7 +37,16 @@ class Module extends BaseModule
 
     public function getServiceConfig()
     {
+
         return array('factories' => array(
+
+            'user.storage' => function($sm) {
+                return new \Application\Storage\Users($sm->getService('datasource'));
+            },
+
+            'visits.storage' => function($sm) {
+                return new \Application\Storage\Visits($sm->getService('datasource'));
+            }
 
         ));
     }
