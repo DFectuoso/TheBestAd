@@ -4,10 +4,15 @@ Homepage:
 
 
 LastUrl:
-    pattern: /endpoint/lasturl
+    pattern: /api/lasturl
     defaults: { _controller: "Application:Api:getLastUrl" }
 
 
 LastPrice:
-    pattern: /endpoint/lastprice
+    pattern: /api/lastprice
     defaults: { _controller: "Application:Api:getLastPrice" }
+
+
+Uploadfile:
+    pattern: /api/uploadfile
+    defaults: { _controller: "Application:Api:uploadFile" }
