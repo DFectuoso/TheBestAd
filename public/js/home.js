@@ -1,10 +1,8 @@
+/*global Firebase:true usersRef:true */
+/*jshint asi:true */
+
 var seeAdsRef;
 var clicksRef;
-
-jQuery(document).ready(function ($) {
-    setUpPresence();
-    setUp($("#loadedAdId")[0].value);
-});
 
 function seeAd(){
     seeAdsRef.transaction(function(currentRank) {
@@ -33,6 +31,14 @@ function setUp(adId){
     })
 }
 
+var makeid = function() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    for( var i=0; i < 50; i++ )
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+};
+
 function setUpPresence(){
     var username = makeid();
     var total_connected = new Firebase('https://bestad.firebaseIO.com/total_connected');
@@ -49,82 +55,39 @@ function setUpPresence(){
 
     usersRef = new Firebase('https://bestad.firebaseIO.com/users');
     usersRef.on('value', function(snapshot) {
-        document.getElementById("connected_users").innerHTML = size(snapshot.val())
+        document.getElementById("connected_users").innerHTML = Object.keys(snapshot.val()).length;
     });
 }
 
-function makeid() {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for( var i=0; i < 50; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    return text;
-}
+jQuery(document).ready(function ($) {
+    setUpPresence();
+    setUp($("#loadedAdId")[0].value);
+});
 
-size = function(obj) {
-    var size = 0, key;
-    for (key in obj) {
-        if (obj.hasOwnProperty(key)) size++;
-    }
-    return size;
+
+var holder = document.getElementById('holder');
+
+holder.ondragover = function (e) {
+  e.preventDefault();
+  this.className = 'hover';
 };
 
-// UPLOAD
+holder.ondragend = function (e) {
+  e.preventDefault();
+  this.className = '';
+};
 
+holder.ondrop = function (e) {
+  e.preventDefault();
+  this.className = '';
 
+  var file = e.dataTransfer.files[0],
+      reader = new FileReader();
+  reader.onload = function (event) {
+    console.log(event.target);
+    holder.style.background = 'url(' + event.target.result + ') no-repeat center';
+  };
+  console.log(file);
+  reader.readAsDataURL(file);
+};
 
-// Custom example logic
-$(function () {
-
-    var uploader = new plupload.Uploader({
-
-        runtimes: 'html5,browserplus',
-        browse_button: 'pickfiles',
-        container: 'container',
-        max_file_size: '20mb',
-        filters: [
-            {title: "Image Files", extensions: "jpg,png"}
-        ],
-        url: ppi.baseUrl + 'files/upload/'
-    });
-
-    uploader.bind('Init', function (up, params) {
-        //$('#filelist').html();
-    });
-
-    $('#pickfiles').click(function (e) {
-        uploader.start();
-        e.preventDefault();
-    });
-
-    uploader.init();
-    uploader.bind('FilesAdded', function (up, files) {
-        up.refresh(); // Reposition Flash/Silverlight
-    });
-
-    uploader.bind('UploadProgress', function (up, file) {
-        $('#' + file.id + " b").html(file.percent + "%");
-    });
-
-    uploader.bind('Error', function (up, err) {
-
-        if (err.message == 'File extension error.') {
-            $('#filelist').append("<div>ERROR/div>");
-        } else {
-            $('#filelist').append("<div>Error: " + err.code +
-                ", Mensaje: " + err.message +
-                (err.file ? ", Archivo: " + err.file.name : "") +
-                "</div>"
-            );
-        }
-
-        up.refresh(); // Reposition Flash/Silverlight
-    });
-
-    uploader.bind('FileUploaded', function (up, file) {
-        $('#' + file.id + " b").html("100%");
-
-        // redirect to payment...
-    });
-
-});

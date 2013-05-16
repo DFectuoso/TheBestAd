@@ -1,5 +1,10 @@
 <?php $view->extend('::base.html.php'); ?>
 
+<style>
+    #holder { border: 10px dashed #ccc; width: 300px; height: 300px; margin: 20px auto;}
+    #holder.hover { border: 10px dashed #333; }
+</style>
+
 <section class="billboard">
     <img src="http://cloudadmin.mx/images/cloudadmin.png" />
 </section>
@@ -10,8 +15,8 @@
        Share now
     </div>
 
-    <div class="purchase-wrapper">
-        <a href="javascript://" class="pickfiles">Quiero mi Ad</a>
+    <div>
+        <div id="holder" ></div> 
     </div>
 
 
@@ -33,6 +38,5 @@
 
 <?php $view['slots']->start('include_js_body'); ?>
 <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
-<script type="text/javascript" src="<?= $view['assets']->getUrl('js/libs/plupload/js/plupload.full.js'); ?>"></script>
 <script type="text/javascript" src="<?=$view['assets']->getUrl('js/home.js');?>"></script>
 <?php $view['slots']->stop(); ?>
