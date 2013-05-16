@@ -1,4 +1,4 @@
-/*global Firebase:true usersRef:true */
+/*global Firebase:true usersRef:true ppi:true */
 /*jshint asi:true */
 
 var seeAdsRef;
@@ -102,8 +102,9 @@ $('button').on('click', function(e){
 
   var formData = new FormData();
   formData.append('file', file);
+  console.log('baseurl', ppi.baseUrl)
   $.ajax({
-    url: '/api/uploadFile',
+    url: ppi.baseUrl + 'api/uploadfile',
     data: formData,
     processData: false,
     contentType: false,
